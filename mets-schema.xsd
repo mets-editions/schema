@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.tei-c.org/ns/1.0"
+    xmlns:tei="http://www.tei-c.org/ns/1.0"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified">
+    
+    <!-- Element definitions -->
+      
+    <xs:element name="ab" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                A block of text, usually used to mark prose paragraphs.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    
+    <xs:element name="anchor">
+        <xs:annotation>
+            <xs:documentation>
+                An anchor at the beginning of each text, created to allow for Table of Contents linking.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="id" type="xs:string" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="caesura" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                A series of spaces that indicate a break in the metrical line.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    
+    <xs:element name="castList">
+        <xs:annotation>
+            <xs:documentation>
+                Cast list for a dramatic work.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="castItem" type="xs:string" minOccurs="1" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            A cast member within the cast list for a dramatic work.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="date" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                Used for numerical dates and date ranges, including spelled out dates (like fourteenth century).
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    
+    <xs:element name="div">
+        <xs:annotation>
+            <xs:documentation>
+                Delineates major sections of a text.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:element name="head">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Lines of text in Verse or Drama Texts
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:string">
+                                <xs:attribute name="type" use="optional">
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:enumeration value="rubric" />
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                 </xs:attribute>
+                             </xs:extension>
+                         </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>            
+            </xs:sequence> 
+            <xs:attribute name="n" type="xs:string" />
+            <xs:attribute name="type">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="chapter" />
+                        <xs:enumeration value="footnotes" />
+                        <xs:enumeration value="rectotext" />
+                        <xs:enumeration value="text" />
+                        <xs:enumeration value="versotext" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="foreign">
+        <xs:annotation>
+            <xs:documentation>
+                Designates foreign languages in a given METS text.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="lang">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <!-- We can either use comments like this for attribute values or other lists of things where the annotion->documentation elements might hinder the readability of the document, or we can use the annotation->documentation throughout.  I've included the full documentation element for Anglo-Norman as an example so you can see how things look -->
+                                <xs:enumeration value="xno">
+                                    <xs:annotation>
+                                        <xs:documentation>
+                                            Anglo-Norman
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                </xs:enumeration> 
+                                <!-- Arabic -->
+                                <xs:enumeration value="ara" />
+                                <xs:enumeration value="gre" />
+                                <xs:enumeration value="heb" />
+                                <xs:enumeration value="lat" />
+                                <xs:enumeration value="frm" />
+                                <xs:enumeration value="eng" />
+                                <xs:enumeration value="fro" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="gloss">
+        <xs:annotation>
+            <xs:documentation>
+                Used for explanations of Old/Middle English or other words/phrases that might be unclear to modern readers. 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="n" type="xs:string" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="head">
+        <xs:annotation>
+            <xs:documentation>
+                Incipit lines at the beginning of prose texts 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="type">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="incipit" />
+                                <xs:enumeration value="rubric" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>           
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="hi">
+        <xs:annotation>
+            <xs:documentation>
+                Encompasses a variety of textual styling/highlighting within the text.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="rend">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="bold" />
+                                <xs:enumeration value="bolditalic" />
+                                <xs:enumeration value="boldsmallcaps" />
+                                <xs:enumeration value="fraction" />
+                                <xs:enumeration value="italic" />
+                                <xs:enumeration value="italicsmallcaps" />
+                                <xs:enumeration value="italicstrikethrough" />
+                                <xs:enumeration value="smallcaps" />
+                                <xs:enumeration value="smallcapsstrikethrough" />
+                                <xs:enumeration value="subscript" />
+                                <xs:enumeration value="superscript" />
+                                <xs:enumeration value="underline" />
+                                <xs:enumeration value="wynn" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="lg">
+        <xs:annotation>
+            <xs:documentation>
+                Stanzas or lines of verse within Verse Texts or Explanatory Notes
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:element name="l" type="xs:string" minOccurs="1" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Lines of text in Verse or Drama Texts
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="type">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="quoted" />
+                        <xs:enumeration value="rubric" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="list">
+        <xs:annotation>
+            <xs:documentation>
+                A way to present one of a variety of list types (abbreviations, unordered, ordered, bulleted, not bulleted, etc.)
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:element name="item">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Item in a list
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:string">
+                                <xs:attribute name="style" use="optional">
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:enumeration value="abbreviation-listitem" />
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="rend" use="optional">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="bulleted" />
+                        <xs:enumeration value="bulleted2" />
+                        <xs:enumeration value="nobullets" />
+                        <xs:enumeration value="nobullets2" />
+                        <xs:enumeration value="numbered" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="style" use="optional">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="abbreviations" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="listBibl">
+        <xs:annotation>
+            <xs:documentation>
+                A list of bibliographic entries
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:element name="bibl" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Item in a bibliographic list
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="locus" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                Folio numbers in the left hand margin of Texts.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    
+    <xs:element name="milestone">
+        <xs:annotation>
+            <xs:documentation>
+                Line numbers that can appear in the left margin of Texts, Enotes, and Tnotes.  Attribute n = line number; attribute unit = unit of measure for the milestone (line, chapter, etc.)
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="n" type="xs:string" />
+                    <xs:attribute name="unit" type="xs:string" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="name">
+        <xs:annotation>
+            <xs:documentation>
+                Animal names, whether they are actual animals/pets, allegorical animals, personifications, etc. 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="type" use="optional" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="note">
+        <xs:annotation>
+            <xs:documentation>
+                Used for marking notes in the text (when using type: enote, footnote, tnote) as well as for their indicators (when using the type enote-indicator, footnotelink, gloss-indicator, or tnote-indicator
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="n" type="xs:string" />
+                    <xs:attribute name="target" type="xs:string" use="optional" />
+                    <xs:attribute name="type" use="optional">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="enote" />
+                                <xs:enumeration value="footnote" />
+                                <xs:enumeration value="tnote" />
+                                <xs:enumeration value="enote-indicator" />
+                                <xs:enumeration value="footnotelink" />
+                                <xs:enumeration value="gloss-indicator" />
+                                <xs:enumeration value="tnote-indicator" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="p">
+        <xs:annotation>
+            <xs:documentation>
+                This element describes a number of paragraph styles.  We will likely build out documentation at the enumeration level for each paragraph style.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="style" use="optional">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="appendix-headnote1" />
+                                <xs:enumeration value="appendix-headnote2" />
+                                <xs:enumeration value="body" />
+                                <xs:enumeration value="bodyfirst" />
+                                <xs:enumeration value="bodysubsection" />
+                                <xs:enumeration value="bodysubsection2" />
+                                <xs:enumeration value="heading" />
+                                <xs:enumeration value="heading2" />
+                                <xs:enumeration value="heading3" />
+                                <xs:enumeration value="heading4" />
+                                <xs:enumeration value="heading5" />
+                                <xs:enumeration value="incipit" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="persName">
+        <xs:annotation>
+            <xs:documentation>
+                We only tag proper names -- i.e., names that are capitalized.  Apply to names of characters in narratives that are not animals, including some titles (God, Mary, Satan). In a later wave, we may use @type to distinguish between allegorical characters, religious figures, mythological figures, etc. and to specify in the TEI what the title is and what may be an epithet for them.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    
+    <xs:element name="placeName" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                Applied to the proper noun phrase of all named places. Only used in the text, not the apparatus.  Most, but not all, places will be capitalized in the text. Some, but not all, imaginary places (such as Heaven, Hell, Purgatory, etc.) will also be wrapped within this element.
+            </xs:documentation>
+        </xs:annotation>       
+    </xs:element>
+    
+    <xs:element name="postscript">
+        <xs:annotation>
+            <xs:documentation>
+                Explicit lines at the end of prose texts
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:element name="ab" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Block of text within a postscript
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="quote" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                Block quote within Explanatory Notes, Textual Notes, or other Text types
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    
+    <xs:element name="ref">
+        <xs:annotation>
+            <xs:documentation>
+                Primarily used for internal and external links; provisionally keeping a vestigial canonical reference in this schema as well
+            </xs:documentation>
+        </xs:annotation>    
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="subtype" type="xs:string" use="optional" />
+                    <xs:attribute name="target" type="xs:string" use="optional"/>
+                    <xs:attribute name="type">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="can" />
+                                <xs:enumeration value="external" />
+                                <xs:enumeration value="internal" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="space">
+        <xs:annotation>
+            <xs:documentation>
+                Horizontal whitespace for indentation in various Text types (Example: a stanza within a Verse Text, or an Explanatory Note)
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="rend">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="indent1" />
+                                <xs:enumeration value="indent2" />
+                                <xs:enumeration value="indent3" />
+                                <xs:enumeration value="indent4" />
+                                <xs:enumeration value="indent5" />
+                                <xs:enumeration value="indent6" />
+                                <xs:enumeration value="indent7" />
+                                <xs:enumeration value="indent8" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="speaker" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                Names of speaking characters in Drama Texts, including opening list of Dramatis Personae
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    
+    <xs:element name="stage" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                Interlinear text directing the action of actors or appearance/position of set in Drama Texts
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    
+    <xs:element name="table">
+        <xs:annotation>
+            <xs:documentation>
+                A table within a Text (Prose/Drama/Verse or other Apparatus Texts)
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:element name="row" minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            A row within a table
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType mixed="true">
+                        <xs:sequence>
+                            <xs:element name="cell" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        A cell within a table row
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="style" use="optional">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="basictable" />
+                        <xs:enumeration value="general" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="term" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                A term of interest that doesn’t fall under the ‘things’ described in section G (place, person, animal, etc.)
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    
+    <xs:element name="title">
+        <xs:annotation>
+            <xs:documentation>
+                Titles of any publications (texts, books) that appear in the texts
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="rend" type="xs:string" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="trailer">
+        <xs:annotation>
+            <xs:documentation>
+                Explicit lines at the end of Texts; verse can have child 'l' elements
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:element name="l" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Lines of text in Verse or Drama Texts
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
